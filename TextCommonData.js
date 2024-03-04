@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: 'bold',
+    // fontFamily:'BebasNeue-Regular',
+    fontSize:18
+    // color:'red'
   },
   labelData: {
     marginLeft: 5,

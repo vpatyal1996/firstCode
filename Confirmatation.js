@@ -1,9 +1,22 @@
-import { AppState, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { AppState, SafeAreaView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import colors from './Colors'
 import Button from './Button'
+import { useTheme } from '@react-navigation/native'
+import { useColorScheme } from 'react-native'
+// import DarkTheme from './themes/DarkTheme'
+// import DefaultTheme from './themes/DefaultTheme'
+// import { theme } from './theme'
+import { AppContext } from './themes/AppContext'
 
 const Lock = ({ navigation }) => {
+// ****************************** theme**********8 //
+    const {colors}=useTheme();
+    const{isDarkTheme,setIsDarkTheme}= React.useContext(AppContext)
+    // const ColorScheme= useColorScheme();
+    // const theme =ColorScheme==='dark'?DarkTheme:DefaultTheme;
+
+// ******************end here************//
     const [passcode, setPasscode] = useState('');
 
     const pinEnter = (newPin) => {
@@ -23,8 +36,8 @@ const Lock = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.textContainer}>
-                <Text style={styles.mainText}>Confirm Secret Code</Text>
-                <Text style={styles.text2}>Please enter your 6 digit Code</Text>
+                <Text style={[styles.mainText,{color:colors.text}]}>Confirm Secret Code</Text>
+                <Text style={[styles.text2,{color:colors.text}]}>Please enter your 6 digit Code</Text>
             </View>
 
             <View style={styles.codeContainer}>
@@ -39,15 +52,23 @@ const Lock = ({ navigation }) => {
                         key={number}
                         name={number.toString()}
                         buttonStyle={[styles.numberText, passcode.length === 6 ]}
-                        textColor={styles.textbtn}
+                        textColor={[styles.textbtn,{color:colors.text}]}
                         onPress={() => pinEnter(passcode + number)}
                         
                     />
                 ))}
-
-                
-
             </View>
+
+
+         {/******************** theme change here  ********************************/}
+            <View style={{alignItems:'center'}}>
+            <TouchableOpacity style={{backgroundColor:'grey',padding:10,borderRadius:20,width:'50%',alignItems:'center',marginTop:50}}
+                onPress={()=> setIsDarkTheme(current =>!current)}>
+                    <Text style={{color:'white'}}>{isDarkTheme ? 'Switch to Light' : 'Switch to Dark'}</Text>
+                </TouchableOpacity>
+                </View>
+         {/* ************end here***************  */}
+
         </SafeAreaView>
     )
 }
@@ -57,7 +78,8 @@ export default Lock
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center"
+        justifyContent: "center",
+        // backgroundColor:colors.background,
     },
     textContainer: {
 
@@ -65,7 +87,9 @@ const styles = StyleSheet.create({
     mainText: {
         fontSize: 33,
         textAlign: "center",
-        color: colors.Black
+        // color: colors.Black
+        color:'red'
+        // color: theme.colors.text
     },
     text2: {
         fontSize: 17,

@@ -4,6 +4,7 @@ import React, {useRef,useEffect} from 'react';
 import {AppState} from 'react-native';
 import { navigate } from './RootNavigatation';
 import Navigation from './Navigation';
+// import { ThemeProvider } from './themeContext';
 
 
 const App = () => {
@@ -34,7 +35,9 @@ const App = () => {
     };
   }, []);
   return(
+    // <ThemeProvider>
     <Navigation/>
+    // </ThemeProvider>
   );
 }
   //*****************************************end here*************************************************************************************//

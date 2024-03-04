@@ -9,15 +9,21 @@ import {
   AppState,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-
 import {fetchUserAction} from './Redux/action';
 import DataItem from './TextCommonData';
 import colors from './Colors';
 import fontSize from './fontSize';
 import CustomButton from './CustomButton';
 import { navigate } from './RootNavigatation';
+import Fonts from './Fonts/fonts';
+import { useTheme } from '@react-navigation/native';
+import { AppContext } from './themes/AppContext';
+
 
  function HomePage(){
+  const {colors} = useTheme()
+  const{isDarkTheme,setIsDarkTheme}= React.useContext(AppContext)
+
 const [search, setSearch] = useState('');
 
   const user = useSelector(state => state.user);
@@ -35,15 +41,16 @@ const [search, setSearch] = useState('');
   }, [search]);
 
   return (
-    <View style={{backgroundColor: colors.backgroundColor, flex: 1}}>
+    <View style={{backgroundColor: colors.background, flex: 1}}>
       <View style={styles.textContainer}>
         <View style={{alignItems: 'center', marginVertical: 10}}>
           <Text
-            style={{
+            style={[{
               fontSize: fontSize.heading,
               color: colors.Black,
               fontWeight: '500',
-            }}>
+              fontFamily:Fonts.italic
+            },{color:colors.text}]}>
             Api Data
           </Text>
         </View>
